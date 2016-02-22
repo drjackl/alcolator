@@ -39,11 +39,15 @@
     NSLog(@"Slider value changed to %f", sender.value);
     [self.beerPercentTextField resignFirstResponder];
     
-    int servings = (int) sender.value;
-    self.navigationItem.title = [NSString stringWithFormat:
-                                 NSLocalizedString(@"%@ (%d %@)", nil),
-                                 self.alcoholType, (int)sender.value,
-                                 servings!=1 ? @"servings" : @"serving"];
+    //int servings = (int) sender.value;
+//    // navigation bar assignment
+//    self.navigationItem.title = [NSString stringWithFormat:
+//                                 NSLocalizedString(@"%@ (%d %@)", nil),
+//                                 self.alcoholType, (int)sender.value,
+//                                 servings!=1 ? @"servings" : @"serving"];
+    
+//    // update badge with number of beers
+//    [self.tabBarItem setBadgeValue:[NSString stringWithFormat:NSLocalizedString(@"%d", nil), servings]];
 }
 
 - (IBAction)buttonPressed:(UIButton *)sender {
@@ -69,14 +73,20 @@
         wineText = NSLocalizedString(@"glass", @"singular of glass");
     }
     // 4. generate the result text, and display it on the label
+    int numberOfWines = roundf(numberOfWinesForEquivalentAlcoholAmount);
     NSString* resultText = [NSString stringWithFormat:
-                            NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as %.1f %@ of wine.", nil),
-                            numberOfBeers, beerText, self.beerPercentTextField.text.floatValue, numberOfWinesForEquivalentAlcoholAmount, wineText];
+                            NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as ~%d %@ of wine.", nil),
+                            numberOfBeers, beerText, self.beerPercentTextField.text.floatValue, numberOfWines, wineText];
     self.resultLabel.text = resultText;
+    [self updateBadgeWithNumberOfDrinks:numberOfWines];
 }
 
 - (IBAction)tapGestureDidFire:(UITapGestureRecognizer *)sender {
     [self.beerPercentTextField resignFirstResponder];
+}
+
+- (void) updateBadgeWithNumberOfDrinks:(int)numberOfDrinks {
+    [self.tabBarItem setBadgeValue:[NSString stringWithFormat:NSLocalizedString(@"%d", nil), numberOfDrinks]];
 }
 
 @end

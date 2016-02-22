@@ -39,10 +39,12 @@
         whiskeyText = NSLocalizedString(@"shot", @"singular shot");
     }
     // 4. generate and display result
+    int numberOfWhiskeys = roundf(numberOfWhiskeysForEquivalentAlcoholAmount);
     NSString* resultText = [NSString stringWithFormat:
-                            NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as %.1f %@ of whiskey.", nil),
-                            numberOfBeers, beerText, self.beerPercentTextField.text.floatValue, numberOfWhiskeysForEquivalentAlcoholAmount, whiskeyText];
+                            NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as ~%d %@ of whiskey.", nil),
+                            numberOfBeers, beerText, self.beerPercentTextField.text.floatValue, numberOfWhiskeys, whiskeyText];
     self.resultLabel.text = resultText;
+    [self updateBadgeWithNumberOfDrinks:numberOfWhiskeys];
 }
 // Boilerplate
 //- (void)viewDidLoad {

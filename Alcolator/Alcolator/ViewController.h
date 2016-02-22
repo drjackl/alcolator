@@ -14,5 +14,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *beerCountSlider;
 @property (weak, nonatomic) IBOutlet UILabel *resultLabel;
 
+- (void) updateBadgeWithNumberOfDrinks:(int)numberOfDrinks;
+
 @end
 
