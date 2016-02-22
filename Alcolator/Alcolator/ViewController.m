@@ -10,6 +10,8 @@
 
 @interface ViewController ()
 
+@property NSString* alcoholType;
+
 @end
 
 @implementation ViewController
@@ -17,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.alcoholType = self.navigationItem.title;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,6 +38,12 @@
 - (IBAction)sliderValueDidChange:(UISlider *)sender {
     NSLog(@"Slider value changed to %f", sender.value);
     [self.beerPercentTextField resignFirstResponder];
+    
+    int servings = (int) sender.value;
+    self.navigationItem.title = [NSString stringWithFormat:
+                                 NSLocalizedString(@"%@ (%d %@)", nil),
+                                 self.alcoholType, (int)sender.value,
+                                 servings!=1 ? @"servings" : @"serving"];
 }
 
 - (IBAction)buttonPressed:(UIButton *)sender {
