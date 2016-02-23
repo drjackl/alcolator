@@ -34,37 +34,20 @@
     if (numberOfBeers == 1) {
         beerText = NSLocalizedString(@"beer", @"singular beer");
     }
-    NSString* whiskeyText = NSLocalizedString(@"shots", @"plural of shot");
-    if (numberOfWhiskeysForEquivalentAlcoholAmount == 1) {
-        whiskeyText = NSLocalizedString(@"shot", @"singular shot");
-    }
+    NSString* whiskeyText = [self servingTextPluralGivenNumber:numberOfWhiskeysForEquivalentAlcoholAmount];
     // 4. generate and display result
-    int numberOfWhiskeys = roundf(numberOfWhiskeysForEquivalentAlcoholAmount);
     NSString* resultText = [NSString stringWithFormat:
-                            NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as ~%d %@ of whiskey.", nil),
-                            numberOfBeers, beerText, self.beerPercentTextField.text.floatValue, numberOfWhiskeys, whiskeyText];
+                            NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as %.1f %@ of whiskey.", nil),
+                            numberOfBeers, beerText, self.beerPercentTextField.text.floatValue, numberOfWhiskeysForEquivalentAlcoholAmount, whiskeyText];
     self.resultLabel.text = resultText;
-    [self updateBadgeWithNumberOfDrinks:numberOfWhiskeys];
 }
-// Boilerplate
-//- (void)viewDidLoad {
-//    [super viewDidLoad];
-//    // Do any additional setup after loading the view.
-//}
-//
-//- (void)didReceiveMemoryWarning {
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
-//
-///*
-//#pragma mark - Navigation
-//
-//// In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    // Get the new view controller using [segue destinationViewController].
-//    // Pass the selected object to the new view controller.
-//}
-//*/
+
+- (NSString*) servingTextPlural:(BOOL)isPlural {
+    if (isPlural) {
+        return NSLocalizedString(@"shots", @"plural of shot");
+    } else {
+        return NSLocalizedString(@"shot", @"singular shot");
+    }
+}
 
 @end
