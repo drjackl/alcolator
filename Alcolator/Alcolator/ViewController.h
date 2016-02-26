@@ -10,6 +10,9 @@
 
 @interface ViewController : UIViewController
 
+@property NSString* alcoholType;
+@property NSString* alcoholTypeLowercase;
+
 @property (weak, nonatomic) IBOutlet UITextField *beerPercentTextField;
 @property (weak, nonatomic) IBOutlet UISlider *beerCountSlider;
 @property (weak, nonatomic) IBOutlet UILabel *resultLabel;

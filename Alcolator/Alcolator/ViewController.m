@@ -10,9 +10,6 @@
 
 @interface ViewController ()
 
-@property NSString* alcoholType;
-@property NSString* alcoholTypeLowercase;
-
 @end
 
 @implementation ViewController
@@ -72,7 +69,7 @@
 - (void) calculateAlcoholEquivalent {
     [self.beerPercentTextField resignFirstResponder];
     // 1. calculate how much alcohol is in all those beers
-    int numberOfBeers = self.beerCountSlider.value;
+    const int numberOfBeers = self.beerCountSlider.value;
     int ouncesInOneBeer = 12; // assume they are 12 oz servings
     float alcoholPercentOfBeer = self.beerPercentTextField.text.floatValue / 100;
     float ouncesOfAlcoholPerBeer = ouncesInOneBeer * alcoholPercentOfBeer;

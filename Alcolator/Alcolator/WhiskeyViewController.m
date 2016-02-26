@@ -14,7 +14,7 @@
 
 @implementation WhiskeyViewController
 
-- (void) buttonPressed:(UIButton*)sender {
+- (void) calculateAlcoholEquivalent {
     [self.beerPercentTextField resignFirstResponder];
     // 1. calculate oz. of alcohol of beers
     int numberOfBeers = self.beerCountSlider.value;
@@ -37,9 +37,13 @@
     NSString* whiskeyText = [self servingTextPluralGivenNumber:numberOfWhiskeysForEquivalentAlcoholAmount];
     // 4. generate and display result
     NSString* resultText = [NSString stringWithFormat:
-                            NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as %.1f %@ of whiskey.", nil),
-                            numberOfBeers, beerText, self.beerPercentTextField.text.floatValue, numberOfWhiskeysForEquivalentAlcoholAmount, whiskeyText];
+                            NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as %.1f %@ of %@.", nil),
+                            numberOfBeers, beerText, self.beerPercentTextField.text.floatValue, numberOfWhiskeysForEquivalentAlcoholAmount, whiskeyText, self.alcoholTypeLowercase];
     self.resultLabel.text = resultText;
+    
+    self.navigationItem.title = [NSString stringWithFormat:
+                                 NSLocalizedString(@"%@ (%.1f %@)", nil),
+                                 self.alcoholType, numberOfWhiskeysForEquivalentAlcoholAmount, whiskeyText];
 }
 
 - (NSString*) servingTextPlural:(BOOL)isPlural {
